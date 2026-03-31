@@ -1,0 +1,36 @@
+#!/bin/bash
+# Script 2: FOSS Package Inspector
+
+# The chosen package [cite: 132]
+PACKAGE="python3"
+
+echo "Checking system for $PACKAGE..."
+
+# Check if package is installed (handles both deb and rpm systems) [cite: 135]
+if dpkg -s $PACKAGE &>/dev/null || rpm -q $PACKAGE &>/dev/null; then
+    echo "STATUS: $PACKAGE is installed."
+    echo "--- Package Details ---"
+    # Extract version and license info [cite: 139]
+    if command -v dpkg &>/dev/null; then
+        apt-cache show $PACKAGE | grep -E 'Version|Description' | head -n 2
+    else
+        rpm -qi $PACKAGE | grep -E 'Version|License|Summary'
+    fi
+else
+    echo "STATUS: $PACKAGE is NOT installed."
+fi
+
+echo "------------------------------------------"
+# Case statement for philosophical notes [cite: 141]
+case $PACKAGE in
+    python3)
+        echo "Philosophy: Python emphasizes code readability and community-driven evolution." ;;
+    httpd|apache2)
+        echo "Philosophy: Apache: the web server that built the open internet[cite: 143]." ;;
+    mysql)
+        echo "Philosophy: MySQL: open source at the heart of millions of apps[cite: 144]." ;;
+    firefox)
+        echo "Philosophy: Firefox: A nonprofit fighting for an open web." ;;
+    *)
+        echo "Philosophy: Open source software empowers users through the four freedoms[cite: 45]." ;;
+esac

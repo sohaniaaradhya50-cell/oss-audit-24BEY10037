@@ -1,0 +1,36 @@
+#!/bin/bash
+# Script 4: Log File Analyzer
+# Usage: ./log_analyzer.sh /var/log/syslog [cite: 169]
+
+LOGFILE=${1:-"/var/log/syslog"} # Default to syslog if no arg provided
+KEYWORD=${2:-"error"}           # Default keyword is 'error' [cite: 171]
+COUNT=0
+
+if [ ! -f "$LOGFILE" ]; then
+    echo "Error: File $LOGFILE not found[cite: 176]."
+    exit 1
+fi
+
+# Check if file is empty [cite: 184]
+if [ ! -s "$LOGFILE" ]; then
+    echo "The log file is empty. No analysis possible."
+    exit 1
+fi
+
+echo "Analyzing $LOGFILE for '$KEYWORD'..."
+
+# Read file line by line [cite: 177]
+while IFS= read -r LINE; do
+    if echo "$LINE" | grep -iq "$KEYWORD"; then
+        COUNT=$((COUNT + 1))
+        LAST_MATCHES+=("$LINE")
+    fi
+done < "$LOGFILE"
+
+echo "Keyword '$KEYWORD' found $COUNT times."
+
+# Print the last 5 matching lines [cite: 184]
+if [ $COUNT -gt 0 ]; then
+    echo "--- Last 5 occurrences ---"
+    echo "$LINE" | tail -n 5
+fi

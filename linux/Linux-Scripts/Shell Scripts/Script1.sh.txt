@@ -1,0 +1,31 @@
+#!/bin/bash
+# Script 1: System Identity Report
+# Author: [Your Name]
+# Course: Open Source Software
+
+# --- Variables [cite: 99]
+STUDENT_NAME="[Your Name]"
+SOFTWARE_CHOICE="Python"
+KERNEL_VERSION=$(uname -r)
+USER_NAME=$(whoami)
+UPTIME=$(uptime -p)
+DISTRO=$(cat /etc/os-release | grep "PRETTY_NAME" | cut -d= -f2 | tr -d '"')
+CURRENT_DATE=$(date)
+
+# --- Display [cite: 113]
+echo "=========================================="
+echo "          Open Source Audit               "
+echo "=========================================="
+echo "Student Name    : $STUDENT_NAME"
+echo "Software Choice : $SOFTWARE_CHOICE"
+echo "------------------------------------------"
+echo "Kernel Version  : $KERNEL_VERSION"
+echo "Distribution    : $DISTRO"
+echo "Current User    : $USER_NAME"
+echo "Home Directory  : $HOME"
+echo "System Uptime   : $UPTIME"
+echo "Current Date    : $CURRENT_DATE"
+echo "------------------------------------------"
+echo "Note: This OS is powered by the Linux Kernel, 
+licensed under the GNU GPL v2 license[cite: 24, 98]."
+echo "=========================================="
